@@ -1,9 +1,9 @@
 import React from "react";
 
-import SearchBox from './SearchBox';
-import CardList from './CardList';
+import SearchBox from '../components/SearchBox';
+import CardList from '../components/CardList';
 import './App.css'
-import Scroll from './Scroll';
+import Scroll from '../components/Scroll';
 
 
 class App extends React.Component {
@@ -27,7 +27,7 @@ class App extends React.Component {
         const filteredArray = this.state.acquaintances.filter(acquaintance => {
             return acquaintance.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
         });
-        if (this.state.acquaintances.length == 0) {
+        if (this.state.acquaintances.length === 0) {
             return <h1>Loading...</h1>
         }
         return (
