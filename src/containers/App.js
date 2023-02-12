@@ -23,11 +23,11 @@ class App extends React.Component {
         this.setState({ searchfield: event.target.value });
     };
     render() {
-
-        const filteredArray = this.state.acquaintances.filter(acquaintance => {
-            return acquaintance.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+        const { acquaintances, searchfield } = this.state;
+        const filteredArray = acquaintances.filter(acquaintance => {
+            return acquaintance.name.toLowerCase().includes(searchfield.toLowerCase());
         });
-        if (this.state.acquaintances.length === 0) {
+        if (acquaintances.length === 0) {
             return <h1>Loading...</h1>
         }
         return (
