@@ -6,7 +6,7 @@ import './App.css'
 import Scroll from '../components/Scroll';
 
 
-const App = () => {
+function App() {
     const [acquaintances, setAcquaintances] = useState([]);
     const [searchfield, setSearchfield] = useState('');
 
@@ -14,16 +14,16 @@ const App = () => {
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
             .then(users => setAcquaintances(users))
-    });
+    },[]);
 
     const onSearchChange = (event) => {
-        setSearchfield(event.target.value);
+        setSearchfield(event.target.value.toLowerCase());
     };
 
     const filteredArray = acquaintances.filter(acquaintance => {
-        return acquaintance.name.toLowerCase().includes(searchfield.toLowerCase());
+        return acquaintance.name.toLowerCase().includes(searchfield);
     });
-    
+
     if (acquaintances.length === 0) {
         return <h1>Loading...</h1>
     }
