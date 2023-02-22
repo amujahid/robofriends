@@ -1,27 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
 import SearchBox from '../components/SearchBox';
 import CardList from '../components/CardList';
 import './App.css'
 import Scroll from '../components/Scroll';
+import { setSearchField } from "../actions";
 
+const mapStateToProps=state=>{
+    return{
+        searchField:state.searchField
+    };
+}
 
-function App() {
+const mapDispatchToProps=(dispatch)=>{
+    return{onSearchChange:(event)=>dispatch(setSearchField(event.target.value))}
+}
+function App(state) {
     const [acquaintances, setAcquaintances] = useState([]);
-    const [searchfield, setSearchfield] = useState('');
+    const [searchField,onSearchChange]=[state.searchField,state.onSearchChange]
 
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
             .then(users => setAcquaintances(users))
-    },[]);
 
-    const onSearchChange = (event) => {
-        setSearchfield(event.target.value.toLowerCase());
-    };
+    }, []);
+
 
     const filteredArray = acquaintances.filter(acquaintance => {
-        return acquaintance.name.toLowerCase().includes(searchfield);
+        return acquaintance.name.toLowerCase().includes(searchField.toLowerCase());
     });
 
     if (acquaintances.length === 0) {
@@ -40,4 +48,4 @@ function App() {
 
 };
 
-export default App;
+export default connect(mapStateToProps,mapDispatchToProps)(App);
